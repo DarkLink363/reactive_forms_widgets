@@ -1,3 +1,9 @@
+## [3.0.0]
+
+* **BREAKING**: migrated from `package:flutter/material.dart` / `cupertino.dart` to `material_ui` / `cupertino_ui` (`decoration` now takes a `material_ui` `InputDecoration`)
+* `reactive_forms` 19 (AppWorksSH fork, `material_ui`)
+* requires Flutter >= 3.47.0, Dart >= 3.13.0
+
 ## [2.0.2]
 
 * Support `reactive_forms: 18.x`

@@ -1,3 +1,10 @@
+## [6.0.0]
+
+* **BREAKING**: migrated from `package:flutter/material.dart` to `material_ui`
+* `pinput: ^7.0.0` (`material_ui`)
+* `reactive_forms` 19 (AppWorksSH fork, `material_ui`)
+* requires Flutter >= 3.47.0, Dart >= 3.13.0
+
 ## [5.0.1]
 
 * Support `reactive_forms: 18.x`
