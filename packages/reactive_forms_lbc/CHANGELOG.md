@@ -1,3 +1,37 @@
+## [5.0.4]
+
+* reactive_form_array_collection_*
+
+## [5.0.3]
+
+* `notEquals` dynamic types as far as we do not care about T 
+   and avoid producing tough spot for type inference
+
+## [5.0.2]
+
+* `notEquals` for `listenWhen` to help omit RF behavior on enabling control
+
+## [5.0.1]
+
+* fix repository link
+
+## [5.0.0]
+
+* replace `listenOnInit` with `listenerOnInit`
+
+## [4.0.6]
+
+* add `listenOnInit` experiments flag to `ReactiveFormControlValueListener` to simplify attaching listeners
+  which runs some actions on form initialisation
+
+## [4.0.5]
+
+* Support `reactive_forms: 18.x`
+
+## [4.0.4]
+
+* export `nested`
+
 ## [4.0.3]
 
 * fix bad import

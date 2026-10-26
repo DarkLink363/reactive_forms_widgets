@@ -1,3 +1,10 @@
+## [4.0.0]
+Mark control as touchable on switch press
+
+## [3.0.1]
+
+* Support `reactive_forms: 18.x`
+
 ## [3.0.0]
 
 * migrate deprecations

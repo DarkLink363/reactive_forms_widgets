@@ -15,26 +15,32 @@ class ReactiveFormControlValueListener<T>
     extends ReactiveFormControlValueListenerBase<T> {
   const ReactiveFormControlValueListener({
     super.key,
-    required super.listener,
+    super.listener,
     super.formControlName,
     super.formControl,
     super.listenWhen,
+    super.listenerOnInit,
     super.child,
-  }) : assert(
+  })  : assert(
             (formControlName != null && formControl == null) ||
                 (formControlName == null && formControl != null),
-            'Must provide a formControlName or a formControl, but not both at the same time.');
+            'Must provide a formControlName or a formControl, but not both at the same time.'),
+        assert(listener != null || listenerOnInit != null,
+            'Must provide at least one of listener or listenerOnInit.'),
+        assert(listener == null || listenerOnInit == null,
+            'Cannot provide both listener and listenerOnInit at the same time.');
 }
 
 abstract class ReactiveFormControlValueListenerBase<T>
     extends SingleChildStatefulWidget {
   const ReactiveFormControlValueListenerBase({
     super.key,
-    required this.listener,
+    this.listener,
     this.formControl,
     this.formControlName,
     this.child,
     this.listenWhen,
+    this.listenerOnInit,
   }) : super(child: child);
 
   final String? formControlName;
@@ -42,8 +48,9 @@ abstract class ReactiveFormControlValueListenerBase<T>
   final Widget? child;
 
   final AbstractControl<T>? formControl;
+  final ReactiveFormControlWidgetInitListener<T>? listenerOnInit;
 
-  final ReactiveFormControlWidgetListener<T> listener;
+  final ReactiveFormControlWidgetListener<T>? listener;
 
   final ReactiveFormControlValueListenerCondition<T>? listenWhen;
 
@@ -86,6 +93,9 @@ class ReactiveFormControlValueListenerBaseState<T>
     _formControl = widget.control(context);
 
     _previousState = _formControl.value;
+
+    widget.listenerOnInit?.call(_formControl);
+
     _subscribe();
   }
 
@@ -134,7 +144,13 @@ class ReactiveFormControlValueListenerBaseState<T>
     _subscription = _formControl.valueChanges.listen((state) {
       if (widget.listenWhen?.call(_formControl, _previousState, state) ??
           true) {
-        if (mounted) widget.listener(context, _formControl);
+        if (mounted) {
+          if (widget.listener != null) {
+            widget.listener?.call(context, _formControl);
+          } else if (widget.listenerOnInit != null) {
+            widget.listenerOnInit?.call(_formControl);
+          }
+        }
       }
       _previousState = state;
     });
